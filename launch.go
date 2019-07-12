@@ -6,6 +6,8 @@ import (
 	"time"
 )
 
+// 实现的🚀发射倒计时的程序，火箭会在5秒钟后发射
+// 在倒数的过程中，如果输入任意的字符，回车之后就会终止发射
 func main() {
 	abort := make(chan struct{})
 
