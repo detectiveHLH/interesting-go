@@ -8,6 +8,7 @@ import (
 	"path/filepath"
 )
 
+// 递归遍历输入的目录的所有文件总数和其大小
 func main() {
 	flag.Parse()
 	roots := flag.Args()
@@ -20,16 +21,21 @@ func main() {
 		for _, root := range roots {
 			travel(root, fileSize)
 		}
+		// count size over, close the channel
 		close(fileSize)
 	}()
 
 
 	// show the result
 	var nfiles, nbytes int64
+
+	// receive file size data from fileSize channel before it is closed
 	for size := range fileSize {
 		nfiles++
 		nbytes += size
 	}
+
+	// print result
 	fmt.Printf("%d files  %.1f GB\n", nfiles, float64(nbytes)/1e9)
 }
 
