@@ -25,7 +25,6 @@ func main() {
 		close(fileSize)
 	}()
 
-
 	// show the result
 	var fileNumber, bytes int64
 
@@ -39,18 +38,20 @@ func main() {
 	fmt.Printf("%d files  %.1f GB\n", fileNumber, float64(bytes)/1e9)
 }
 
+// 递归遍历传入的路径
 func travel(dir string, fileSize chan<- int64) {
-	for _, entry := range dirents(dir) {
+	for _, entry := range directs(dir) {
 		if entry.IsDir() {
-			subdir := filepath.Join(dir, entry.Name())
-			travel(subdir, fileSize)
+			subDir := filepath.Join(dir, entry.Name())
+			travel(subDir, fileSize)
 		} else {
 			fileSize <- entry.Size()
 		}
 	}
 }
 
-func dirents(dir string) []os.FileInfo {
+// 根据传入的路径获取目录信息
+func directs(dir string) []os.FileInfo {
 	entries, err := ioutil.ReadDir(dir)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Read dir err: %v\n", err)
