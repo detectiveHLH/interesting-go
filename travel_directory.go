@@ -27,16 +27,16 @@ func main() {
 
 
 	// show the result
-	var nfiles, nbytes int64
+	var fileNumber, bytes int64
 
-	// receive file size data from fileSize channel before it is closed
+	// receive file size data from fileSize channel before the channel is closed
 	for size := range fileSize {
-		nfiles++
-		nbytes += size
+		fileNumber++
+		bytes += size
 	}
 
 	// print result
-	fmt.Printf("%d files  %.1f GB\n", nfiles, float64(nbytes)/1e9)
+	fmt.Printf("%d files  %.1f GB\n", fileNumber, float64(bytes)/1e9)
 }
 
 func travel(dir string, fileSize chan<- int64) {
