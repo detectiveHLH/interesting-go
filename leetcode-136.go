@@ -1,30 +1,24 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"sort"
+)
 
 func singleNumber(nums []int) int {
-	if len(nums) == 1 {
+	if len(nums) == 0 {
 		return nums[0]
 	}
-
-	m := make(map[int]int)
-	for _, v := range nums {
-		mv, ok := m[v]
-		if !ok {
-			m[v] = 1
-		} else {
-			m[v] = mv + 1
+	sort.Ints(nums)
+	fmt.Println(nums)
+	for i := 0; i < len(nums)-1; i = i + 2 {
+		if nums[i] != nums[i+1] {
+			return nums[i]
 		}
+
 	}
 
-	for k, v := range m {
-
-		if v == 1 {
-			return k
-		}
-	}
-
-	return 0
+	return nums[len(nums)-1]
 }
 
 func main() {
