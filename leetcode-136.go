@@ -2,23 +2,19 @@ package main
 
 import (
 	"fmt"
-	"sort"
 )
 
 func singleNumber(nums []int) int {
-	if len(nums) == 0 {
-		return nums[0]
-	}
-	sort.Ints(nums)
-	fmt.Println(nums)
-	for i := 0; i < len(nums)-1; i = i + 2 {
-		if nums[i] != nums[i+1] {
-			return nums[i]
+	var t int
+	for k, num := range nums {
+		if k == 0 {
+			t = num
+		} else {
+			t = t ^ num
 		}
-
 	}
 
-	return nums[len(nums)-1]
+	return t
 }
 
 func main() {
