@@ -1,26 +1,20 @@
 package main
 
-import (
-	"fmt"
-	"os"
-	"time"
-)
+import "fmt"
+
+type Coord struct {
+	X int32
+	Z int32
+}
 
 func main() {
-	abort := make(chan struct{})
+	fmt.Println(test())
+}
 
-	go func() {
-		_, _ = os.Stdin.Read(make([]byte, 1))
-		abort <- struct{}{}
-	}()
-
-	fmt.Println("Commencing countdown.")
-	select {
-	case <-time.After(5 * time.Second):
-		break
-	case <-abort:
-		fmt.Println("Launch aborted!")
-		return
+func test() []Coord {
+	var test []Coord
+	for i := 0; i < 5; i++ {
+		test = append(test, Coord{X:2,Z:2})
 	}
-	fmt.Println("Launch.")
+	return test
 }
